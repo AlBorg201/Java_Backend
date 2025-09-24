@@ -28,6 +28,7 @@ public class Task_2 {
         return Math.pow(num_1, num_2);
     }
 
+    // Проверяет, что массив содержит 3 элемента
     public static boolean validateExpression(String[] parts) {
         if (parts.length != 3) {
             return false;
@@ -41,7 +42,8 @@ public class Task_2 {
         return true;
     }
 
-    // чтобы можно было вводить без пробелов
+
+    // Убирает пробелы слева и справа, а также вокруг операторов
     public static String[] withoutSpace(String input) {
         input = input.trim();
         input = input.replaceAll("\\s*([+\\-*/%^])\\s*", "$1");
@@ -49,11 +51,10 @@ public class Task_2 {
         return input.split("(?<=[+\\-*/%^])|(?=[+\\-*/%^])");
     }
 
-
-    // убираем точку если ответ целый или округляем
+     // Приводит число к типу int, либо округляет до трех знаков после запятой
     public static String formatResult(double result) {
-        if (result == (long) result) {
-            return String.valueOf((long) result);
+        if (result == (int) result) {
+            return String.valueOf((int) result);
         } else {
             return String.format("%.3f", result);
         }
