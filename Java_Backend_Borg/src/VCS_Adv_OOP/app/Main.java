@@ -77,7 +77,7 @@ public class Main {
         }
 
         while (true) {
-            System.out.println("Выберите действие: ");
+            System.out.println("\nВыберите действие: ");
             System.out.println("1. Показать информацию");
             System.out.println("2. Завести транспорт");
             System.out.println("3. Начать движение");

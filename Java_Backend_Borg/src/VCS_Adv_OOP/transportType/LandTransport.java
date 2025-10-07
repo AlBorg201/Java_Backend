@@ -7,6 +7,6 @@ public non-sealed abstract class LandTransport extends Transport {
 
     @Override
     public void move() {
-        System.out.println("Движется по земле");
+        System.out.println(model + " Движется по земле");
     }
 }

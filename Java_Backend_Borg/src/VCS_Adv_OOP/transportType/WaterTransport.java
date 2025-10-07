@@ -7,6 +7,6 @@ public non-sealed abstract class WaterTransport extends Transport {
 
     @Override
     public void move() {
-        System.out.println("Идет по воде");
+        System.out.println(model + " Идет по воде");
     }
 }

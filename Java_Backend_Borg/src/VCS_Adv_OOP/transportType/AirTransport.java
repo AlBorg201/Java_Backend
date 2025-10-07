@@ -7,6 +7,6 @@ public non-sealed abstract class AirTransport extends Transport {
 
     @Override
     public void move() {
-        System.out.println("Летит");
+        System.out.println(model + " Летит");
     }
 }
