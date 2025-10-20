@@ -22,22 +22,42 @@ public class Task_1 {
 
             String[] parts = Validator.withoutSpace(input);
 
+            if (input.isEmpty()) {
+                System.out.println("Ошибка: пустой ввод");
+                continue;
+            }
+
             if (!Validator.validateExpression(parts)) {
                 System.out.println("Неверное выражение, введите еще раз:");
                 continue;
             }
 
-            double num_1 = Double.parseDouble(parts[0]);
-            String operator = parts[1];
-            double num_2 = Double.parseDouble(parts[2]);
+            double num_1, num_2;
 
+            try {
+                num_1 = Double.parseDouble(parts[0]);
+                num_2 = Double.parseDouble(parts[2]);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: некорректные числа");
+                continue;
+            }
+
+            String operator = parts[1];
 
             try {
                 Operation operation = calculator.newOperation(operator, num_1, num_2);
                 double result = calculator.calculate(operation);
-                System.out.println("Результат: " + calculator.formatResult(result));
+
+                if (Double.isNaN(result) || Double.isInfinite(result)) {
+                    System.out.println("Ошибка: результат не определён или слишком велик");
+                } else {
+                    System.out.println("Результат: " + calculator.formatResult(result));
+                }
+
             } catch (ArithmeticException | IllegalArgumentException e) {
                 System.out.println("Ошибка: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Непредвиденная ошибка: " + e.getMessage());
             }
         }
 
