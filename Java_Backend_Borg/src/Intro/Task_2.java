@@ -78,46 +78,69 @@ public class Task_2 {
 
             String[] parts = withoutSpace(input);
 
+            if (input.isEmpty()) {
+                System.out.println("Ошибка: пустой ввод");
+                continue;
+            }
+
             if (!validateExpression(parts)) {
                 System.out.println("Неверное выражение, введите еще раз:");
                 continue;
             }
 
-            double num_1 = Double.parseDouble(parts[0]);
             String operator = parts[1];
+            if (!operator.matches("[+\\-*/%^]")) {
+                System.out.println("Ошибка: неизвестный оператор '" + operator + "'");
+                continue;
+            }
+
+            double num_1 = Double.parseDouble(parts[0]);
             double num_2 = Double.parseDouble(parts[2]);
 
             try {
+                num_1 = Double.parseDouble(parts[0]);
+                num_2 = Double.parseDouble(parts[2]);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: некорректные числа");
+                continue;
+            }
+
+            try {
+                double result = 0;
+
                 switch (operator) {
-                    case "+":
-                        System.out.println("Результат: " + formatResult(addition(num_1, num_2)));
-                        break;
-                    case "-":
-                        System.out.println("Результат: " + formatResult(difference(num_1, num_2)));
-                        break;
-                    case "*":
-                        System.out.println("Результат: " + formatResult(multiply(num_1, num_2)));
-                        break;
+                    case "+": result = addition(num_1, num_2); break;
+                    case "-": result = difference(num_1, num_2); break;
+                    case "*": result = multiply(num_1, num_2); break;
                     case "/":
                         if (num_2 == 0) {
                             System.out.println("Ошибка: деление на ноль");
-                        } else {
-                            System.out.println("Результат: " + formatResult(division(num_1, num_2)));
+                            continue;
                         }
-                        break;
-                    case "^":
-                        System.out.println("Результат: " + formatResult(exponentiation(num_1, num_2)));
+                        result = division(num_1, num_2);
                         break;
                     case "%":
                         if (num_2 == 0) {
                             System.out.println("Ошибка: деление на ноль");
-                        } else {
-                            System.out.println("Результат: " + formatResult(remainder(num_1, num_2)));
+                            continue;
                         }
+                        result = remainder(num_1, num_2);
                         break;
-                    default:
-                        System.out.println("Ошибка: неизвестная операция");
+                    case "^":
+                        if (num_1 == 0 && num_2 < 0) {
+                            System.out.println("Ошибка: ноль в отрицательной степени не определён");
+                            continue;
+                        }
+                        result = exponentiation(num_1, num_2);
+                        break;
                 }
+
+                if (Double.isNaN(result) || Double.isInfinite(result)) {
+                    System.out.println("Ошибка: результат не определён или слишком велик");
+                } else {
+                    System.out.println("Результат: " + formatResult(result));
+                }
+
             } catch (ArithmeticException e) {
                 System.out.println("Ошибка вычисления: " + e.getMessage());
             }
