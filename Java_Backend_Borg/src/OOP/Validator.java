@@ -20,6 +20,6 @@ public class Validator {
     public static String[] withoutSpace(String input) {
         input = input.trim();
         input = input.replaceAll("\\s*([+\\-*/%^])\\s*", "$1");
-        return input.split("(?<=[+\\-*/%^])|(?=[+\\-*/%^])");
+        return input.split("(?<=[+*/%^])|(?=[+*/%^])");
     }
 }

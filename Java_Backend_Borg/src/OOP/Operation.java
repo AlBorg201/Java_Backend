@@ -78,6 +78,8 @@ class Exponentiation extends Operation {
 
     @Override
     public double getResult() {
+        if (num_1 == 0 && num_2 < 0)
+            throw new ArithmeticException("Ошибка: ноль в отрицательной степени");
         return Math.pow(num_1, num_2);
     }
 }
